@@ -1,36 +1,22 @@
-// src/components/HeroVideo.jsx
-import React from "react";
 
-export default function HeroVideo({
-  title = "¡Bienvenidos a tu tienda de pinturas!",
-  subtitle = "Colores profesionales para transformar tus espacios",
-  ctaPrimary = { label: "Ver catálogo", href: "#catalogo" },
-  ctaSecondary = { label: "Asesoría gratuita", href: "#contacto" },
-}) {
+export default function HeroVideo() {
   return (
-    <section className="hero-video" id="inicio" aria-label="Bienvenida">
+    <section className="hero">
       <video
-        className="hero-video__media"
+        className="hero-video"
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
-        poster="/logo.png"
+        preload="auto"
       >
         <source src="/hero-pintura.mp4" type="video/mp4" />
       </video>
 
-      <div className="hero-video__overlay" />
-
-      {/* 👇 sin 'container' */}
-      <div className="hero-video__content">
-        <img src="/logo.png" alt="Pinturas Centro Color" className="hero-brand" />
-        <h1>{title}</h1>
-        <p className="lead">{subtitle}</p>
-        <div className="cta">
-          <a className="btn primary" href={ctaPrimary.href}>{ctaPrimary.label}</a>
-          <a className="btn outline" href={ctaSecondary.href}>{ctaSecondary.label}</a>
+      <div className="hero-overlay">
+        <div>
+          <h1 className="hero-title">Bienvenido a tu tienda de pinturas</h1>
+          <p className="hero-subtitle">De paredes simples a ambientes inolvidables</p>
         </div>
       </div>
     </section>

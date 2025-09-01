@@ -64,7 +64,7 @@ export default function CartDrawer({ open, onClose }) {
         </footer>
       </div>
 
-      {/* backdrop */}
+      
       {open && <div className="backdrop" onClick={onClose} />}
     </>
   );
