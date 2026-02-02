@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "Vinilo Blanco 1 Galón", "price": 45000, "stock": 12, "category": "Vinilos" },
+  { "id": 2, "name": "Esmalte Azul 1/4", "price": 18000, "stock": 8, "category": "Esmaltes" },
+  { "id": 3, "name": "Sellador Acrílico 1 Galón", "price": 52000, "stock": 5, "category": "Selladores" }
+]

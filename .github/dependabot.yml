@@ -1,0 +1,19 @@
+# Se configuró Dependabot para automatizar la gestión de dependencias y el versionado del proyecto.
+# Esta herramienta analiza periódicamente las dependencias npm del frontend y backend,
+# detecta vulnerabilidades o nuevas versiones, y genera Pull Requests automáticos para su actualización,
+# mejorando la seguridad y el mantenimiento del software.
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "npm"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+
+
+
