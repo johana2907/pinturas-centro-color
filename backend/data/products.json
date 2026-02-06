@@ -1,5 +1,36 @@
 [
-  { "id": 1, "name": "Vinilo Blanco 1 Galón", "price": 45000, "stock": 12, "category": "Vinilos" },
-  { "id": 2, "name": "Esmalte Azul 1/4", "price": 18000, "stock": 8, "category": "Esmaltes" },
-  { "id": 3, "name": "Sellador Acrílico 1 Galón", "price": 52000, "stock": 5, "category": "Selladores" }
+  {
+    "id": 1,
+    "title": "Vinilo Blanco 1 Galón",
+    "description": "Pintura vinílica para interiores, acabado mate.",
+    "code": "VIN-BLA-001",
+    "price": 45000,
+    "status": true,
+    "stock": 12,
+    "category": "Vinilos",
+    "thumbnails": ["img/vinilo-blanco.jpg"]
+  },
+  {
+    "id": 2,
+    "title": "Esmalte Azul 1/4",
+    "description": "Esmalte sintético brillante para metal y madera.",
+    "code": "ESM-AZU-001",
+    "price": 18000,
+    "status": true,
+    "stock": 8,
+    "category": "Esmaltes",
+    "thumbnails": ["img/esmalte-azul.jpg"]
+  },
+  {
+    "id": 3,
+    "title": "Sellador Acrílico 1 Galón",
+    "description": "Sellador para preparar superficies antes de pintar.",
+    "code": "SEL-ACR-001",
+    "price": 52000,
+    "status": true,
+    "stock": 5,
+    "category": "Selladores",
+    "thumbnails": ["img/sellador-acrilico.jpg"]
+  }
 ]
+

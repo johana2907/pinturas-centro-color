@@ -1,7 +1,9 @@
+
 import express from "express";
 import cors from "cors";
-import productsRouter from "./routes/products.routes.js";
 
+import productsRouter from "./routes/products.routes.js";
+import cartsRouter from "./routes/carts.routes.js";
 
 const app = express();
 
@@ -12,8 +14,8 @@ app.get("/api/health", (req, res) => {
   res.json({ ok: true, message: "Backend funcionando ✅" });
 });
 
-const PORT = 3000;
 app.use("/api/products", productsRouter);
+app.use("/api/carts", cartsRouter);
 
 // middleware de errores
 app.use((err, req, res, next) => {
@@ -21,9 +23,11 @@ app.use((err, req, res, next) => {
   res.status(500).json({ ok: false, error: "Error interno" });
 });
 
+const PORT = 8080; //  requerido
 app.listen(PORT, () => {
   console.log(`API corriendo en http://localhost:${PORT}`);
 });
+
 
 
 
