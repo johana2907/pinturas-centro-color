@@ -1,17 +1,33 @@
 import { Router } from "express";
+import passport from "passport";
+import { authorization } from "../middlewares/authorization.js";
 import { createCart, getCartById, addProductToCart } from "../services/carts.service.js";
+import { purchaseCart } from "../services/purchase.service.js";
 
 const router = Router();
 
 // POST /api/carts  -> cree carrito
-router.post("/", async (req, res, next) => {
-  try {
-    const cart = await createCart();
-    res.status(201).json(cart);
-  } catch (err) {
-    next(err);
+router.post(
+  "/:cid/product/:pid",
+  passport.authenticate("current", { session: false }),
+  authorization("user"),
+  async (req, res, next) => {
+    try {
+      const result = await addProductToCart(req.params.cid, req.params.pid);
+
+      if (result?.error === "PRODUCT_NOT_FOUND") {
+        return res.status(404).json({ error: "Producto no encontrado" });
+      }
+      if (result?.error === "CART_NOT_FOUND") {
+        return res.status(404).json({ error: "Carrito no encontrado" });
+      }
+
+      res.json(result);
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
 
 // GET /api/carts/:cid -> traje un carrito por id
 
@@ -42,5 +58,27 @@ router.post("/:cid/product/:pid", async (req, res, next) => {
     next(err);
   }
 });
+
+router.post(
+  "/:cid/purchase",
+  passport.authenticate("current", { session: false }),
+  authorization("user"),
+  async (req, res, next) => {
+    try {
+      const result = await purchaseCart(
+        req.params.cid,
+        req.user.email
+      );
+
+      if (result.error === "CART_NOT_FOUND") {
+        return res.status(404).json({ error: "Carrito no encontrado" });
+      }
+
+      res.json(result);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 export default router;

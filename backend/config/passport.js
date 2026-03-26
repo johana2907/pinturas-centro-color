@@ -2,9 +2,12 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 
-import { UserModel } from "../models/user.model.js";
+import { UsersRepository } from "../repositories/users.repository.js";
 import { CartModel } from "../models/cart.model.js";
 import { createHash, isValidPassword } from "../utils/password.js";
+
+const usersRepository = new UsersRepository();
+
 
 export function initPassport() {
                                // Registro (local)
@@ -16,21 +19,20 @@ export function initPassport() {
         try {
           const { first_name, last_name, age } = req.body;
 
-          const exists = await UserModel.findOne({ email });
+          const exists = await usersRepository.getUserByEmail(email);
           if (exists) return done(null, false, { message: "Email ya registrado" });
 
           const cart = await CartModel.create({ products: [] });
 
-          const user = await UserModel.create({
-            first_name,
-            last_name,
-            email,
-            age,
-            password: createHash(password),
-            cart: cart._id,
-            role: "user"
-          });
-
+          const user = await usersRepository.createUser({
+  first_name,
+  last_name,
+  email,
+  age,
+  password: createHash(password),
+  cart: cart._id,
+  role: "user"
+});
           return done(null, user);
         } catch (err) {
           return done(err);
@@ -46,7 +48,7 @@ export function initPassport() {
       { usernameField: "email", session: false },
       async (email, password, done) => {
         try {
-          const user = await UserModel.findOne({ email });
+          const user = await usersRepository.getUserByEmail(email);
           if (!user) return done(null, false, { message: "Usuario no encontrado" });
 
           if (!isValidPassword(password, user.password)) {
@@ -71,7 +73,7 @@ export function initPassport() {
       },
       async (payload, done) => {
         try {
-          const user = await UserModel.findById(payload.sub).populate("cart");
+          const user = await usersRepository.getUserById(payload.sub);
           if (!user) return done(null, false);
           return done(null, user);
         } catch (err) {
